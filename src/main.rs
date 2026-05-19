@@ -5,7 +5,7 @@
 #![allow(clippy::cast_possible_truncation)]
 #![allow(clippy::cast_sign_loss)]
 
-//! ProtonDB lookup CLI utility.
+//! ProtonDB search CLI utility.
 //!
 //! This program is not affiliated with [ProtonDB](https://www.protondb.com), Algolia, or Steam in any way.
 
@@ -16,7 +16,7 @@ use std::process::exit;
 
 mod apis;
 
-/// ProtonDB lookup CLI utility
+/// ProtonDB search CLI utility
 #[derive(Debug, Parser)]
 #[clap(author, version, about)]
 struct Cli {
