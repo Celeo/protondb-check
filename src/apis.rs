@@ -26,7 +26,7 @@ pub enum ReleaseYear {
 impl fmt::Display for ReleaseYear {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            ReleaseYear::Number(n) => write!(f, "{n}"),
+            ReleaseYear::Number(n) => write!(f, "{}", *n as u32),
             ReleaseYear::Text(s) => write!(f, "{s}"),
         }
     }
@@ -35,7 +35,7 @@ impl fmt::Display for ReleaseYear {
 #[derive(Debug, Deserialize)]
 pub struct AlgoliaEntry {
     pub name: String,
-    #[serde(rename = "oslist")]
+    #[serde(default, rename = "oslist")]
     pub os_list: Vec<String>,
     #[serde(rename = "releaseYear")]
     pub release_year: Option<ReleaseYear>,
@@ -72,15 +72,10 @@ pub fn query_algolia(game: &str) -> Result<Vec<AlgoliaEntry>> {
                 "facetFilters": [["appType:Game"]],
                 "hitsPerPage": {ALGOLIA_LIMIT},
                 "attributesToRetrieve": [
-                    "lastUpdated",
                     "name",
-                    "objectID",
-                    "followers",
                     "oslist",
                     "releaseYear",
-                    "tags",
-                    "technologies",
-                    "userScore"
+                    "objectID"
                 ],
                 "page": 0
             }}"#
